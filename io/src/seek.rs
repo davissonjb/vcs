@@ -21,6 +21,7 @@ use crate::file::*;
 use std::{
     collections::HashSet,
     env, fs,
+    iter::Iterator,
     ops::Deref,
     path::{Path, PathBuf},
 };
@@ -78,53 +79,7 @@ impl Crawler {
         println!("-------------------------------------------");
     }
 
-    // for e in fs::read_dir(self.root.deref()).unwrap() {
-    // let ent = e.unwrap();
-    // if ent.path().is_dir() {
-    //     self.dirs.push(Box::new(ent.path()));
-    // }
-    // for i in self.dirs.iter() {
-    //     println!("{}", i.display());
-    // }
-    // println!("Entry:: {}\n", ent.path().display());
-    // let p = ent.path();
-    // println!("----entry.path :: {}", p.display());
-    // }
-
-    // let md = fs::metadata(&p).unwrap();
-    // if md.is_dir() && ent.path().as_os_str() != "target" {
-    //     self.dirs.push(Box::new(p.clone()));
-    //     self.setnext(p.clone());
-    //     self.seekNext(*self.next.clone());
-    // }
-    // if md.is_file() {
-    //     self.files
-    //         .push(Box::new(p.clone().file_name().unwrap().into()))
-    // }
-    // }
-    // } // END pub fn seek(&mut self) -> ()
-
-    fn seekNext(&mut self, p: PathBuf) -> () {
-        let root = self.root.clone();
-        // println!("[seekNext]:: Root is: {}", root.display());
-        for e in fs::read_dir(self.next.deref()).unwrap() {
-            let ent = e.unwrap();
-            // println!("SeekNext - Entry:: {}\n", ent.path().display());
-            let p = ent.path();
-            // println!("----entry.path :: {}", p.display());
-            let md = fs::metadata(&p).unwrap();
-            if md.is_dir() {
-                //&& (ent.path().as_os_str() != "target") {
-                self.dirs.push(Box::new(p.clone()));
-                self.setnext(p.clone());
-                self.seekNext(*self.next.clone());
-            }
-            if md.is_file() {
-                self.files
-                    .push(Box::new(p.clone().file_name().unwrap().into()))
-            }
-        }
-    }
+    fn recurse(&mut self, p: PathBuf) -> () {}
 
     fn sort(&mut self) -> () {
         self.dirs.sort();
@@ -146,6 +101,17 @@ impl Crawler {
             //     println!("----{}", f.display());
             // }
         }
+    }
+}
+
+// --------------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------------
+
+impl Iterator for Crawler {
+    type Item = PathBuf;
+    fn next(&mut self) -> Option<Self::Item> {
+        Some(*self.dirs.iter().next().unwrap().clone())
     }
 }
 
