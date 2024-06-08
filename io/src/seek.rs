@@ -60,7 +60,7 @@ impl Crawler {
         *self.next = p;
     }
 
-    pub fn seek(&mut self) -> () {
+    pub fn init(&mut self) -> () {
         println!("Recursively seeking in root: {}", self.root.display());
         let a: Vec<PathBuf> = fs::read_dir(self.root.deref())
             .unwrap()
@@ -71,10 +71,8 @@ impl Crawler {
             .collect::<HashSet<_>>()
             .into_iter()
             .collect();
-        for b in a.iter() {
-            println!("Adding path: {}", b.display());
+        for b in a.iter().filter(|r| !r.ends_with(".git")) {
             self.dirs.push(Box::new(b.clone()));
-            // self.dirs.push(Box::new(PathBuf::from(b)));
         }
         println!("-------------------------------------------");
         println!("-------------------------------------------");
