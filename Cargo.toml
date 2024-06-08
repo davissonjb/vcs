@@ -1,0 +1,8 @@
+[workspace]
+members = [
+    "bin",
+    "diffing",
+    "hashing",
+    "io"
+    , "user"]
+resolver = "2"
