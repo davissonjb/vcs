@@ -23,6 +23,7 @@ fn main() {
     let mut c: io::seek::Crawler = io::seek::Crawler::new();
     c.setCurr();
     c.seek();
+    println!("Printing Crawler from fn main()!");
     c.print();
     println!("Hello, world!");
 }

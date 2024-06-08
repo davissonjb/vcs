@@ -19,6 +19,7 @@
 
 use crate::file::*;
 use std::{
+    collections::HashSet,
     env, fs,
     ops::Deref,
     path::{Path, PathBuf},
@@ -61,24 +62,49 @@ impl Crawler {
 
     pub fn seek(&mut self) -> () {
         println!("Recursively seeking in root: {}", self.root.display());
-        // for e in fs::read_dir(self.root.deref()).unwrap() {
-        //     let ent = e.unwrap();
-        //     println!("Entry:: {}\n", ent.path().display());
-        //     let p = ent.path();
-        //     println!("----entry.path :: {}", p.display());
+        let a: Vec<PathBuf> = fs::read_dir(self.root.deref())
+            .unwrap()
+            .into_iter()
+            .filter(|a| a.is_ok())
+            .map(|e| e.unwrap().path())
+            .filter(|b| b.is_dir())
+            .collect::<HashSet<_>>()
+            .into_iter()
+            .collect();
+        for b in a.iter() {
+            println!("Adding path: {}", b.display());
+            self.dirs.push(Box::new(b.clone()));
+            // self.dirs.push(Box::new(PathBuf::from(b)));
+        }
+        println!("-------------------------------------------");
+        println!("-------------------------------------------");
+    }
 
-        // let md = fs::metadata(&p).unwrap();
-        // if md.is_dir() && ent.path().as_os_str() != "target" {
-        //     self.dirs.push(Box::new(p.clone()));
-        //     self.setnext(p.clone());
-        //     self.seekNext(*self.next.clone());
-        // }
-        // if md.is_file() {
-        //     self.files
-        //         .push(Box::new(p.clone().file_name().unwrap().into()))
-        // }
-        // }
-    } // END pub fn seek(&mut self) -> ()
+    // for e in fs::read_dir(self.root.deref()).unwrap() {
+    // let ent = e.unwrap();
+    // if ent.path().is_dir() {
+    //     self.dirs.push(Box::new(ent.path()));
+    // }
+    // for i in self.dirs.iter() {
+    //     println!("{}", i.display());
+    // }
+    // println!("Entry:: {}\n", ent.path().display());
+    // let p = ent.path();
+    // println!("----entry.path :: {}", p.display());
+    // }
+
+    // let md = fs::metadata(&p).unwrap();
+    // if md.is_dir() && ent.path().as_os_str() != "target" {
+    //     self.dirs.push(Box::new(p.clone()));
+    //     self.setnext(p.clone());
+    //     self.seekNext(*self.next.clone());
+    // }
+    // if md.is_file() {
+    //     self.files
+    //         .push(Box::new(p.clone().file_name().unwrap().into()))
+    // }
+    // }
+    // } // END pub fn seek(&mut self) -> ()
 
     fn seekNext(&mut self, p: PathBuf) -> () {
         let root = self.root.clone();
