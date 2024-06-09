@@ -25,7 +25,6 @@ use std::{
     ops::Deref,
     path::{Path, PathBuf},
 };
-use walkdir::WalkDir;
 
 pub struct Crawler {
     root: Box<PathBuf>,
