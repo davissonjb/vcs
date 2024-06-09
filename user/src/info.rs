@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------------
 //!
-//! File: vcs/bin/src/main.rs
+//! File: vcs/user/src/info.rs
 //! Author: Jacob Davisson
 //! Last Modified: 08 June 2024
 //! Purpose:
@@ -17,17 +17,22 @@
 #![allow(unused)]
 #![allow(dead_code)]
 
-use io::*;
+use std::fmt::{Debug, Display};
 
-fn main() {
-    let mut c: io::seek::Crawler = io::seek::Crawler::new();
-    c.setCurr();
-    c.init();
-    println!("Printing Crawler from fn main()!");
-    c.print();
-    println!("Tree count: {}", c.treeCount());
-    println!("-----------------------------");
-    println!("Hello, world!");
+pub struct VCSUser {
+    name: String,
+    user: String,
+    email: String,
+}
+
+impl VCSUser {
+    pub fn new() -> Self {
+        Self {
+            name: String::default(),
+            user: String::default(),
+            email: String::default(),
+        }
+    }
 }
 
 // --------------------------------------------------------------------------------------------------------------------------
