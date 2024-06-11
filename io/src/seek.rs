@@ -62,6 +62,26 @@ impl Crawler {
         *self.next = p;
     }
 
+    ///----------------------------------------------------------------------
+    ///----------------------------------------------------------------------
+    ///
+    /// Signature: pub fn init(&mut self) -> ()
+    /// Purpose:   Generate initial data structure with the
+    ///            directories, and included files, as found
+    ///            in root directory specified.
+    /// Features:  During collection into a Vector data structure,
+    ///            each directory found in root path is filtered
+    ///            to ensure that it is a directory. These directories
+    ///            are then collected as a HashSet, which ensures
+    ///            uniqueness of the paths therein before being
+    ///            transformed back into, and collected as a Vector.
+    ///            The contents of said Vector are further refined
+    ///            by removing paths that end with ".git" or "target,"
+    ///            to ensure that build products for Rust projects,
+    ///            and the VCS folder contents are not captured.
+    ///
+    ///----------------------------------------------------------------------
+    ///----------------------------------------------------------------------
     pub fn init(&mut self) -> () {
         println!("Recursively seeking in root: {}", self.root.display());
         let a: Vec<PathBuf> = fs::read_dir(self.root.deref())
