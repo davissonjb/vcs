@@ -17,7 +17,7 @@
 #![allow(unused)]
 #![allow(dead_code)]
 
-use crate::file::*;
+use crate::handler::file::*;
 use std::{
     collections::HashSet,
     env, fs,
@@ -99,8 +99,8 @@ impl Crawler {
         {
             self.dirs.push(Box::new(b.clone()));
         }
-        println!("-------------------------------------------");
-        println!("-------------------------------------------");
+        // println!("-------------------------------------------");
+        // println!("-------------------------------------------");
         let tmp: Vec<Box<PathBuf>> = self.dirs.clone();
         for i in tmp {
             self.recurse(i.deref());

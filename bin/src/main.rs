@@ -22,7 +22,7 @@ use io::*;
 use user::*;
 
 fn main() {
-    let mut c: io::seek::Crawler = io::seek::Crawler::new();
+    let mut c: io::handler::seek::Crawler = io::handler::seek::Crawler::new();
     let mut u: user::info::VCSUser = user::info::VCSUser::new();
     u.setName("Jacob Davisson".to_owned());
     u.setEmail("davissonjb@gmail.com".to_owned());
