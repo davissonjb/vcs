@@ -29,8 +29,8 @@ use walkdir::WalkDir;
 
 pub struct Crawler {
     root: Box<PathBuf>,
-    dirs: Vec<Box<PathBuf>>,
-    files: Vec<Box<PathBuf>>,
+    dirs: HashSet<Box<PathBuf>>,
+    files: HashSet<Box<PathBuf>>,
     next: Box<PathBuf>,
 }
 
@@ -38,8 +38,8 @@ impl Crawler {
     pub fn new() -> Self {
         Self {
             root: Box::<PathBuf>::new(PathBuf::new()),
-            dirs: Vec::<Box<PathBuf>>::new(),
-            files: Vec::<Box<PathBuf>>::new(),
+            dirs: HashSet::<Box<PathBuf>>::new(),
+            files: HashSet::<Box<PathBuf>>::new(),
             next: Box::<PathBuf>::new(PathBuf::new()),
         }
     }
@@ -63,17 +63,17 @@ impl Crawler {
 
     pub fn init(&mut self) -> () {
         println!("Recursively seeking in root: {}", self.root.display());
-        let a: Vec<PathBuf> = fs::read_dir(self.root.deref())
+        let a: HashSet<PathBuf> = fs::read_dir(self.root.deref())
             .unwrap()
             .into_iter()
             .filter(|a| a.is_ok())
             .map(|e| e.unwrap().path())
             .filter(|b| b.is_dir())
-            .collect::<HashSet<_>>()
-            .into_iter()
-            .collect();
+            .collect::<HashSet<_>>();
+        // .into_iter()
+        // .collect();
         for b in a.iter().filter(|r| !r.ends_with(".git")) {
-            self.dirs.push(Box::new(b.clone()));
+            self.dirs.insert(Box::new(b.clone()));
         }
         println!("-------------------------------------------");
         println!("-------------------------------------------");
@@ -81,10 +81,10 @@ impl Crawler {
 
     fn recurse(&mut self, p: PathBuf) -> () {}
 
-    fn sort(&mut self) -> () {
-        self.dirs.sort();
-        self.files.sort();
-    }
+    // fn sort(&mut self) -> () {
+    //     self.dirs.sort();
+    //     self.files.sort();
+    // }
 
     fn sieve(&mut self) -> usize {
         let initDirCnt: usize = self.dirs.len();
@@ -94,7 +94,7 @@ impl Crawler {
     }
 
     pub fn print(&mut self) -> () {
-        self.sort();
+        // self.sort();
         for d in self.dirs.iter() {
             println!("{}", d.display());
             // for f in self.files.iter() {
