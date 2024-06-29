@@ -23,19 +23,22 @@ use user::*;
 
 fn main() {
     let mut c: io::handler::seek::Crawler = io::handler::seek::Crawler::new();
-    let mut u: user::info::VCSUser = user::info::VCSUser::new();
-    u.setName("Jacob Davisson".to_owned());
-    u.setEmail("davissonjb@gmail.com".to_owned());
-    println!("{}", u);
+    // let mut u: user::info::VCSUser = user::info::VCSUser::new();
+    // u.setName("Jacob Davisson".to_owned());
+    // u.setEmail("davissonjb@gmail.com".to_owned());
+    // println!("{}", u);
     c.setCurr();
     c.init();
-    println!("Printing Crawler from fn main()!");
+    println!("Printing directory listing::");
+    println!("-----------------------------");
+    println!("-----------------------------");
     c.print();
+    println!("-----------------------------");
     println!("Tree count: {}", c.treeCount());
     println!("-----------------------------");
-    println!("Hello, world!");
-    let ld: LocalData = LocalData::new();
-    println!("{}", ld);
+    // println!("Hello, world!");
+    // let ld: LocalData = LocalData::new();
+    // println!("{}", ld);
 }
 
 // --------------------------------------------------------------------------------------------------------------------------
