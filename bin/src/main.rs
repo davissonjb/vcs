@@ -19,16 +19,27 @@
 
 use io::store::file::LocalData;
 use io::*;
+// use std::env;
+// use std::path::Path;
 use user::*;
 
 fn main() {
+    // let p = env::current_dir().unwrap();
+    // for a in p.ancestors() {
+    //     println!("{:?}", a.display());
+    // }
+
     let mut c: io::handler::seek::Crawler = io::handler::seek::Crawler::new();
     // let mut u: user::info::VCSUser = user::info::VCSUser::new();
     // u.setName("Jacob Davisson".to_owned());
     // u.setEmail("davissonjb@gmail.com".to_owned());
     // println!("{}", u);
-    c.setCurr();
+
+    c.setRoot(".".to_owned());
+
+    // c.setCurr();
     c.init();
+
     println!("Printing directory listing::");
     println!("-----------------------------");
     println!("-----------------------------");
@@ -37,6 +48,7 @@ fn main() {
     println!("Tree count: {}", c.treeCount());
     println!("-----------------------------");
     c.treePrint();
+
     // println!("Hello, world!");
     // let ld: LocalData = LocalData::new();
     // println!("{}", ld);

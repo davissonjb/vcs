@@ -92,10 +92,12 @@ impl Crawler {
             .filter(|b| b.is_dir())
             .collect::<HashSet<_>>()
             .into_iter()
+            .filter(|r| !r.ends_with(".git"))
+            .filter(|l| !l.ends_with("target"))
             .collect();
-        for b in a
-            .iter()
-            .filter(|r| !r.ends_with(".git") && !r.ends_with("target"))
+        for b in a.iter()
+        // .filter(|r| !r.ends_with(".git"))
+        // .filter(|l| !l.ends_with("target"))
         {
             self.dirs.push(Box::new(b.clone()));
         }
