@@ -36,6 +36,7 @@ fn main() {
     println!("-----------------------------");
     println!("Tree count: {}", c.treeCount());
     println!("-----------------------------");
+    c.treePrint();
     // println!("Hello, world!");
     // let ld: LocalData = LocalData::new();
     // println!("{}", ld);
