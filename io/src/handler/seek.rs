@@ -26,6 +26,18 @@ use std::{
     path::{Path, PathBuf},
 };
 
+// Need to really reconsider some of these entries
+// in struct Crawler. It should be reasonably possible
+// to consolidate these data structures into a smaller
+// required list.
+//
+// One quick thought :: Might choose to utilize somthing
+// along the lines of a Vec<Box<(PathBuf, PathBuf)>> for
+// maintaining association of files with their containing
+// folder. Surely there is a better (HashMap??) option for
+// doing this in std::collections.
+//
+
 pub struct Crawler {
     root: Box<PathBuf>,
     dirs: Vec<Box<PathBuf>>,
