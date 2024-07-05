@@ -26,9 +26,14 @@ use std::{
     path::{Path, PathBuf},
 };
 
+/// pub struct Sources
+/// Purpose: This struct will maintain/arrange/organize the
+///          files being diffed -- by any of the algorithms.
+///
 pub struct Sources {
     dir: PathBuf,
-    files: Vec<PathBuf>,
+    prevFiles: Vec<PathBuf>,
+    currFiles: Vec<PathBuf>,
     currView: PathBuf,
 }
 
@@ -36,7 +41,8 @@ impl Sources {
     pub fn new() -> Self {
         Self {
             dir: PathBuf::new(),
-            files: Vec::<PathBuf>::new(),
+            prevFiles: Vec::<PathBuf>::new(),
+            currFiles: Vec::<PathBuf>::new(),
             currView: PathBuf::new(),
         }
     }
