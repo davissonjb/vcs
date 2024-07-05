@@ -58,10 +58,8 @@ impl Sources {
     }
 
     pub fn init(&mut self) -> bool {
-        match self.dir.is_dir() {
-            false => false,
-            true => true,
-        }
+        let f = std::fs::read_dir(self.dir.deref()).unwrap();
+        true
     }
 }
 
